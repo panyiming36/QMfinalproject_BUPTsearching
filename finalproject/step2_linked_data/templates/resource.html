@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - BUPT Linked Data{% endblock %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<!-- URI Display -->
+<div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; word-break: break-all;">
+    <strong>URI:</strong> <code>{{ uri }}</code>
+</div>
+
+<!-- Format Links -->
+<div style="margin: 20px 0;">
+    <strong>Other formats:</strong>
+    <a href="{{ uri }}?_format=ttl" style="display: inline-block; margin-right: 10px; padding: 5px 10px; background: #17a2b8; color: white; text-decoration: none; border-radius: 3px;">Turtle</a>
+    <a href="{{ uri }}?_format=json" style="display: inline-block; margin-right: 10px; padding: 5px 10px; background: #17a2b8; color: white; text-decoration: none; border-radius: 3px;">JSON-LD</a>
+</div>
+
+<!-- Properties Table -->
+<h2>Properties</h2>
+<table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+    <thead>
+        <tr style="background: #0066cc; color: white;">
+            <th style="padding: 12px; text-align: left;">Predicate</th>
+            <th style="padding: 12px; text-align: left;">Object</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for prop in properties %}
+        <tr style="border-bottom: 1px solid #dee2e6;">
+            <td style="padding: 12px; font-weight: bold; color: #0066cc;">{{ prop.predicate }}</td>
+            <td style="padding: 12px;">
+                {% if prop.object.startswith('http') %}
+                    <a href="{{ prop.object }}" style="color: #0066cc;">{{ prop.object }}</a>
+                {% else %}
+                    {{ prop.object }}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

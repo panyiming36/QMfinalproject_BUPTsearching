@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Papers List - BUPT Linked Data{% endblock %}
+
+{% block content %}
+<h1>📄 Papers List</h1>
+
+<!-- Papers Table -->
+<table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+    <thead>
+        <tr style="background: #0066cc; color: white;">
+            <th style="padding: 12px; text-align: left;">Title</th>
+            <th style="padding: 12px; text-align: left;">Author</th>
+            <th style="padding: 12px; text-align: left;">Year</th>
+            <th style="padding: 12px; text-align: left;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for paper in papers %}
+        <tr style="border-bottom: 1px solid #dee2e6;">
+            <td style="padding: 12px;">{{ paper.title }}</td>
+            <td style="padding: 12px;">{{ paper.author }}</td>
+            <td style="padding: 12px;">{{ paper.year }}</td>
+            <td style="padding: 12px;">
+                <a href="{{ paper.uri }}" style="display: inline-block; padding: 5px 10px; background: #28a745; color: white; text-decoration: none; border-radius: 3px;">View</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Pagination -->
+<div style="margin: 20px 0; text-align: center;">
+    {% if page > 1 %}
+    <a href="?page={{ page-1 }}" style="display: inline-block; padding: 8px 12px; background: #0066cc; color: white; text-decoration: none; border-radius: 3px; margin: 0 5px;">← Previous</a>
+    {% endif %}
+    
+    <span style="display: inline-block; padding: 8px 12px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 3px; margin: 0 5px;">Page {{ page }} of {{ total_pages }}</span>
+    
+    {% if page < total_pages %}
+    <a href="?page={{ page+1 }}" style="display: inline-block; padding: 8px 12px; background: #0066cc; color: white; text-decoration: none; border-radius: 3px; margin: 0 5px;">Next →</a>
+    {% endif %}
+</div>
+
+<!-- Download Links -->
+<div style="margin: 20px 0; text-align: right;">
+    <a href="{{ request.path }}?_format=ttl" style="display: inline-block; padding: 5px 10px; background: #17a2b8; color: white; text-decoration: none; border-radius: 3px; margin-left: 10px;">Download as Turtle</a>
+    <a href="{{ request.path }}?_format=json" style="display: inline-block; padding: 5px 10px; background: #17a2b8; color: white; text-decoration: none; border-radius: 3px; margin-left: 10px;">Download as JSON-LD</a>
+</div>
+{% endblock %}

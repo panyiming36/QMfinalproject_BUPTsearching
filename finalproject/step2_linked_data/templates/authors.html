@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Authors List - BUPT Linked Data{% endblock %}
+
+{% block content %}
+<h1>👥 Authors List</h1>
+
+<!-- Authors Table -->
+<table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+    <thead>
+        <tr style="background: #0066cc; color: white;">
+            <th style="padding: 12px; text-align: left;">Name</th>
+            <th style="padding: 12px; text-align: left;">URI</th>
+            <th style="padding: 12px; text-align: left;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for author in authors %}
+        <tr style="border-bottom: 1px solid #dee2e6;">
+            <td style="padding: 12px;">{{ author.name }}</td>
+            <td style="padding: 12px; font-family: monospace; font-size: 0.9rem;">{{ author.uri }}</td>
+            <td style="padding: 12px;">
+                <a href="{{ author.uri }}" style="display: inline-block; padding: 5px 10px; background: #28a745; color: white; text-decoration: none; border-radius: 3px;">View</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Pagination -->
+<div style="margin: 20px 0; text-align: center;">
+    {% if page > 1 %}
+    <a href="?page={{ page-1 }}" style="display: inline-block; padding: 8px 12px; background: #0066cc; color: white; text-decoration: none; border-radius: 3px; margin: 0 5px;">← Previous</a>
+    {% endif %}
+    
+    <span style="display: inline-block; padding: 8px 12px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 3px; margin: 0 5px;">Page {{ page }} of {{ total_pages }}</span>
+    
+    {% if page < total_pages %}
+    <a href="?page={{ page+1 }}" style="display: inline-block; padding: 8px 12px; background: #0066cc; color: white; text-decoration: none; border-radius: 3px; margin: 0 5px;">Next →</a>
+    {% endif %}
+</div>
+{% endblock %}

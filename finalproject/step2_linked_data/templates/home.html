@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Home - BUPT Linked Data{% endblock %}
+
+{% block content %}
+<h1>📚 BUPT Research Data Linked Data System</h1>
+
+<!-- Statistics Cards -->
+<div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0;">
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 5px; text-align: center; border: 1px solid #dee2e6;">
+        <div style="font-size: 2.5rem; font-weight: bold; color: #0066cc;">{{ stats.papers }}</div>
+        <div style="font-size: 1rem; color: #6c757d;">Papers</div>
+    </div>
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 5px; text-align: center; border: 1px solid #dee2e6;">
+        <div style="font-size: 2.5rem; font-weight: bold; color: #0066cc;">{{ stats.authors }}</div>
+        <div style="font-size: 1rem; color: #6c757d;">Authors</div>
+    </div>
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 5px; text-align: center; border: 1px solid #dee2e6;">
+        <div style="font-size: 2.5rem; font-weight: bold; color: #0066cc;">{{ stats.organizations }}</div>
+        <div style="font-size: 1rem; color: #6c757d;">Organizations</div>
+    </div>
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 5px; text-align: center; border: 1px solid #dee2e6;">
+        <div style="font-size: 2.5rem; font-weight: bold; color: #0066cc;">{{ stats.triples }}</div>
+        <div style="font-size: 1rem; color: #6c757d;">Triples</div>
+    </div>
+</div>
+
+<!-- About Section -->
+<div style="margin: 40px 0;">
+    <h2>What is Linked Data?</h2>
+    <p>This system publishes BUPT research data as Linked Data. Each resource has a unique URI and can be accessed via HTTP with content negotiation.</p>
+    
+    <h3 style="margin-top: 20px;">Example Resources:</h3>
+    <ul style="margin-left: 20px;">
+        <li><a href="/research/paper/0001">Paper: paper_0001</a></li>
+        <li><a href="/research/author/1234">Author: author_1234</a></li>
+        <li><a href="/research/org/5678">Organization: org_5678</a></li>
+    </ul>
+    
+    <h3 style="margin-top: 20px;">Content Negotiation:</h3>
+    <p>You can get different formats using the Accept header or _format parameter:</p>
+    <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+curl -H "Accept: text/turtle" http://localhost:8080/research/paper/0001
+curl http://localhost:8080/research/paper/0001?_format=json
+    </pre>
+</div>
+
+<!-- Quick Links -->
+<div style="margin: 40px 0;">
+    <h2>Quick Links</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;">
+        <a href="/papers" style="display: block; padding: 15px; background: #e9ecef; text-align: center; text-decoration: none; color: #0066cc; border-radius: 5px;">📄 View All Papers</a>
+        <a href="/authors" style="display: block; padding: 15px; background: #e9ecef; text-align: center; text-decoration: none; color: #0066cc; border-radius: 5px;">👥 View All Authors</a>
+        <a href="/organizations" style="display: block; padding: 15px; background: #e9ecef; text-align: center; text-decoration: none; color: #0066cc; border-radius: 5px;">🏛️ View All Organizations</a>
+        <a href="/search" style="display: block; padding: 15px; background: #e9ecef; text-align: center; text-decoration: none; color: #0066cc; border-radius: 5px;">🔍 Search Papers</a>
+    </div>
+</div>
+{% endblock %}
